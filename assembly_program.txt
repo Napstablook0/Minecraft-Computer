@@ -1,0 +1,280 @@
+
+Ce fichier a été utilisé pour écrire les codes assembleurs qui seront executés sur l'ordinateur minecraft 
+
+-----------------------------------------------------------------------------------------
+
+PROGRAMME 1
+but du programme :
+faire 255 - 40 + 25 = 240
+
+
+en assembleur :
+LDI r1 255
+LDI r2 40
+SUB r1 r1 r2
+LDI r2 25
+
+ADD r1 r1 r2
+HLT
+
+converti en langage machine :
+0100 0001 1111 1111
+0100 0010 0010 1000
+0100 0011 0001 1001
+0001 0001 0001 0010
+
+0000 0001 0001 0011
+1111 0000 0000 0000
+
+-----------------------------------------------------------------------------------------
+
+PROGRAMME 2
+but du programme : tester l'instruction jump if
+r4 contient 1 si ca a marché, 0 out autre si ca n'a pas marché
+
+
+en assembleur : 
+LDI r1 10
+LDI r2 10
+ADD r3 r1 r2
+JZ 6
+SUB r3 r1 r2
+JZ 8
+LDI r4 0
+HLT
+LDI r4 1
+HLT
+
+langage machine :
+line 0 : ['0100', '0001', '0000    1010']
+line 1 : ['0100', '0010', '0000    1010']
+line 2 : ['0000', '0011', '0001', '0010']
+line 3 : ['0101    0000', '0000    0110']
+line 4 : ['0001', '0011', '0001', '0010']
+line 5 : ['0101    0000', '0000    1000']
+line 6 : ['0100', '0100', '0000    0000']
+line 7 : ['1111    0000    0000    0000']
+line 8 : ['0100', '0100', '0000    0001']
+line 9 : ['1111    0000    0000    0000']
+
+-----------------------------------------------------------------------------------------
+
+PROGRAMME 3
+but du programme : faire 4 x 5 = 20
+résultat dans le registre 5
+
+en assembleur :
+LDI r1 4		0	# uniquement ca a changer
+LDI r2 5		1	# uniquement ca a changer
+LDI r3 0		2
+LDI r5 0		3
+LDI r6 1		4
+  ADD r5 r5 r2		5
+  ADD r3 r3 r6		6
+  SUB r15 r1 r3		7
+  JZ 10			8
+  JMP 5			9
+HLT			10
+
+en langage machine :
+line 0 : ['0100', '0001', '0000    0110']
+line 1 : ['0100', '0010', '0000    1001']
+line 2 : ['0100', '0011', '0000    0000']
+line 3 : ['0100', '0101', '0000    0000']
+line 4 : ['0100', '0110', '0000    0001']
+line 5 : ['0000', '0101', '0101', '0010']
+line 6 : ['0000', '0011', '0011', '0110']
+line 7 : ['0001', '1111', '0001', '0011']
+line 8 : ['0101    0000', '0000    1010']
+line 9 : ['0110    0000', '0000    0101']
+line 10 : ['1111    0000    0000    0000']
+
+-----------------------------------------------------------------------------------------
+
+PROGRAMME 4
+but du programme : tester l'incrementation de registre
+
+en assembleur :
+LDI r1 10
+LDI r2 5
+ADD r1 r1 r2
+HLT
+
+en langage machine :
+line 0 : ['0100', '0001', '0000    1010']
+line 1 : ['0100', '0010', '0000    0101']
+line 2 : ['0000', '0001', '0001', '0010']
+line 3 : ['1111    0000    0000    0000']
+
+
+PROGRAMME 4
+but du programme : afficher un smiley
+
+en assembleur :
+LDI r15 64
+
+LDI r15 13
+LDI r14 141	(13 + 128)
+
+LDI r15 15
+LDI r14 141 	(13 + 128)
+
+LDI r15 12
+LDI r14 139 	(11 + 128)
+
+LDI r15 13
+LDI r14 138 	(10 + 128)
+
+LDI r15 14
+LDI r14 138 	(10 + 128)
+
+LDI r15 15
+LDI r14 138 	(10 + 128)
+
+LDI r15 16
+LDI r14 139 	(11 + 128)
+HLT
+
+en langage machine :
+line 0 : ['0100', '1111', '0100    0000']
+line 1 : ['0100', '1111', '0000    1101']
+line 2 : ['0100', '1110', '1000    1101']
+line 3 : ['0100', '1111', '0000    1111']
+line 4 : ['0100', '1110', '1000    1101']
+line 5 : ['0100', '1111', '0000    1100']
+line 6 : ['0100', '1110', '1000    1011']
+line 7 : ['0100', '1111', '0000    1101']
+line 8 : ['0100', '1110', '1000    1010']
+line 9 : ['0100', '1111', '0000    1110']
+line 10 : ['0100', '1110', '1000    1010']
+line 11 : ['0100', '1111', '0000    1111']
+line 12 : ['0100', '1110', '1000    1010']
+line 13 : ['0100', '1111', '0001    0000']
+line 14 : ['0100', '1110', '1000    1011']
+line 15 : ['1111    0000    0000    0000']
+
+-----------------------------------------------------------------------------------------
+
+PROGRAMME GAUCHE-DROITE
+but du programme : faire rebondir une balle sur l'écran de gauche à droite
+
+en assembleur :
+
+LDI r1 1	# pour vérifier si r4 == 1 et avancer la balle
+LDI r2 31	# bord droit de l'écran
+LDI r3 63	# pour enlever les 2 bits de clear et plot
+LDI r4 1	# 1 si la balle avance, 2 si la balle recule
+LDI r5 255	# la valeur a ajouter pour reculer de 1 pixel (pour savoir pourquoi la valeur 255 en particulier, voir tout en bas de la page)
+LDI r6 192	# pour afficher la balle
+
+# LIGNE 6 coordonnées d'origine de la balle et effacer l'écran au début et afficher la balle
+LDI r15 0
+LDI r14 0
+
+LDI r15 93	# 29 + 64	X = 93
+LDI r14 133	# 5 + 128	Y = 5
+
+# LIGNE 10 bouger la balle
+SUB r0 r4 r1
+JZ 13	# addr avancer la balle
+JMP 16	# addr reculer la balle
+
+# LIGNE 13 avancer la balle
+AND r15 r3 r15	# on met à 0 les 2 bits de clear et plot
+ADD r15 r1 r15	# on avance la balle
+JMP 19 		# addr afficher la balle
+
+# LIGNE 16 reculer la balle
+AND r15 r3 r15	# on met à 0 les 2 bits de clear et plot
+ADD r15 r5 r15	# on recule la balle
+JMP 19		# addr afficher la balle
+
+
+# LIGNE 19 afficher la balle
+ADD r15 r6 r15
+
+# LIGNE 20 vérifier si on est à un bord
+# bord gauche
+AND r15 r3 r15	# on met à 0 les 2 bits de clear et plot
+SUB r0 r0 r15
+JZ 27	# addr mettre r4 à 1
+
+# LIGNE 23 
+# bord droit
+AND r15 r3 r15	# on met à 0 les 2 bits de clear et plot
+SUB r0 r2 r15
+JZ 29	# addr mettre r4 à 2
+
+JMP 10	# addr bouger la balle
+
+# LIGNE 27 mettre r4 à 1
+LDI r4 1
+JMP 10	# addr bouger la balle
+
+# LIGNE 29 mettre r4 à 2
+LDI r4 2
+JMP 10	# addr bouger la balle
+
+
+
+en langage machine :
+line 0 : ['0100', '0001', '0000    0001'] 
+line 1 : ['0100', '0010', '0001    1111'] 
+line 2 : ['0100', '0011', '0011    1111'] 
+line 3 : ['0100', '0100', '0000    0001'] 
+line 4 : ['0100', '0101', '1111    1111'] 
+line 5 : ['0100', '0110', '1100    0000'] 
+line 6 : ['0100', '1111', '0000    0000'] 
+line 7 : ['0100', '1110', '0000    0000'] 
+line 8 : ['0100', '1111', '0101    1101']
+line 9 : ['0100', '1110', '1000    0101']
+line 10 : ['0001', '0000', '0100', '0001']
+line 11 : ['0101    0000', '0000    1101']
+line 12 : ['0110    0000', '0001    0000']
+line 13 : ['0011', '1111', '0011', '1111']
+line 14 : ['0000', '1111', '0001', '1111']
+line 15 : ['0110    0000', '0001    0011']
+line 16 : ['0011', '1111', '0011', '1111']
+line 17 : ['0000', '1111', '0101', '1111']
+line 18 : ['0000', '1111', '0110', '1111']
+line 19 : ['0011', '1111', '0011', '1111']
+line 20 : ['0001', '0000', '0000', '1111']
+line 21 : ['0101    0000', '0001    1011']
+line 22 : ['0011', '1111', '0011', '1111']
+line 23 : ['0001', '0000', '0010', '1111']
+line 24 : ['0101    0000', '0001    1101']
+line 25 : ['0110    0000', '0000    1010']
+line 26 : ['0100', '0100', '0000    0001']
+line 27 : ['0110    0000', '0000    1010']
+line 28 : ['0100', '0100', '0000    0010']
+line 29 : ['0110    0000', '0000    1010']
+
+-----------------------------------------------------------------------------------------
+
+PROGRAMME GAUCHE-DROITE-BAS-HAUT
+but du programme : faire rebondir une balle sur l'écran de gauche à droite et de haut en bas (de la même manière que le logo DVD)
+
+en assembleur :
+
+
+
+en langage machine :
+
+
+-----------------------------------------------------------------------------------------
+
+trouvons par combien on doit augmenter les coordonnées x d'un pixel pour le reculer d'un pixel
+x est stocké sur un octet (donc mod 256)
+
+x est un entier naturel <= 255
+x est la coordonnée en abscisse
+y est la valeur à ajouter à x pour réduire x de 1
+
+trouvons y tq : x + y = x - 1 [256]
+	x + 255 = x + 255 [256]
+	<=> x + 255 = x - 1[256] (on soustrait par 256)
+y = 255 est une solution
+
+Donc soustraire un nombre binaire et additionner le complément à 2 de ce nombre reviennent au même
+1 = 255 en complément à 2 sur 8 bits
+càd : x + 255 = x - 1	(x étant un nombre binaire écrit sur 8 bits)

@@ -3,13 +3,15 @@
 
 -----------CREDITS-----------
 
-- création de l'ordinateur (hardware)							: 	Raphael HUC
-- théorisation de l'assembleur et résolution des problèmes		: 	raph
-- écriture des codes en assembleur (software)					:	moi
-- réalisation du compilateur									:	moi-même
-- organisation du projet										:	toujours moi
-- rédaction du mannuel											:	ca change pas
-- placement des instruction assembleur dans une liste			:	chatGPT
+- création de l'ordinateur (hardware) ------------------------------ Raphael HUC
+- théorisation de l'assembleur et résolution des problèmes --------- raphael
+- écriture des codes en assembleur (software) ---------------------- HUC
+- réalisation du compilateur --------------------------------------- moi
+- organisation du projet ------------------------------------------- moi-même
+- rédaction du mannuel --------------------------------------------- raph
+- soutien émotionnel ----------------------------------------------- toujours moi
+- placement des instruction assembleur dans une liste -------------- chatGPT
+- remerciement pour les tutoriels et certains composants ----------- Matbatwings (chaine youtube)
 
 
 

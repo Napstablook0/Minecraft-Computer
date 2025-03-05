@@ -129,7 +129,7 @@ si vous avez déjà le monde minecraft ouvert, passez cette étape
 
 	- Vous voyez le gros bloc vert clair ? c'est la mémoire à instruction (instruction memory) c'est là qu'on va
 	placer le code (voir l'image instruction_memory du dossier images)
-	- allez au dessus de la mémoire à instruction, un de ses coins contient un bloc de laine noir, allez vers ce bloc
+	- allez au dessus de la mémoire à instruction, un de ses coins contient un bloc noir, allez vers ce bloc
 	- chaque colonne (voir l'image "colonnes" dans le dossier images) est un ligne/instruction de langage
 	machine, le premier bit, celui tout en haut de chaque colonnes est le bit le plus à droite (voir l'image  
     bits_colonne dans le dossier images)
@@ -161,7 +161,7 @@ si vous avez déjà le monde minecraft ouvert, passez cette étape
 	d'éxecuter (par l'instruction HALT)
 	- pour voir les résultat dans les registres, allez vers la grosse construction rose, à droite de l'écran
 	- chaque block lumineux est un bit, chaque colonne de bit est un octet (et un registre donc) dont le msb
-	(most significant bit) est celui le plus en haut, voir les images registres et bits_registres du dossier images
+	(most significant bit) est celui le plus en haut, voir l'image registres du dossier images
 	- afin de pouvoir réexecuter l'ordinateur, vous devez remettre à zero le compteur de programme (program
 	counter), pour cela, revenez devant le bouton qui permet d'éxecuter le programme et appuyez sur l'autre
     bouton, placé à sa gauche

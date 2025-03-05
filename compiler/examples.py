@@ -1,5 +1,5 @@
 """ 
-EXEMPLE 1
+PROGRAMME 1
 but du programme :
     faire 255 - 40 + 25 = 240
     le resultat est stocke dans le registre r1

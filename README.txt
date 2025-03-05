@@ -11,7 +11,7 @@
 - rédaction du mannuel ------------------------------------------- raph
 - soutien émotionnel ---------------------------------------------- toujours moi
 - placement des instruction assembleur dans une liste ---------- chatGPT
-- remerciement pour les tutoriels et certains composants ------- Matbatwings (chaine youtube)
+- remerciement pour les tutoriels et certains composants ------- Mattbatwings (chaine youtube)
 
 
 

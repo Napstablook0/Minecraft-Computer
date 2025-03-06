@@ -8,7 +8,7 @@
 - écriture des codes en assembleur (software) -------------------- HUC
 - réalisation du compilateur --------------------------------------- moi
 - organisation du projet ------------------------------------------- moi-même
-- rédaction du mannuel ------------------------------------------- raph
+- rédaction du manuel -------------------------------------------- raph
 - soutien émotionnel ---------------------------------------------- toujours moi
 - placement des instruction assembleur dans une liste ---------- chatGPT
 - remerciement pour les tutoriels et certains composants ------- Mattbatwings (chaine youtube)

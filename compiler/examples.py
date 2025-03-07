@@ -65,90 +65,68 @@ but du programme : faire rebondir une balle sur l'écran de gauche à droite
 
 en assembleur :
 
-LDI r1 1	# pour vérifier si r4 == 1 et avancer la balle
+LDI r1 1	# l'acceleration de la balle écrit en complément à 2, 1 si elle avance, 255 si elle recule (voir bas de la page)
 LDI r2 31	# bord droit de l'écran
-LDI r3 63	# pour enlever les 2 bits de clear et plot
-LDI r4 1	# 1 si la balle avance, 2 si la balle recule
-LDI r5 255	# la valeur a ajouter pour reculer de 1 pixel (pour savoir d'où vient la valeur 255, voir tout en bas de la page)
-LDI r6 192	# pour afficher la balle
+LDI r3 63	# pour enlever les 2 bits de clear et plot du r15
+LDI r6 192	# pour afficher la balle (mettre à 1 le bit de plot du r15)
 
-6# coordonnées d'origine de la balle et effacer l'écran au début et afficher la balle
+# LIGNE 4 coordonnées d'origine de la balle, effacer l'écran au début et afficher la balle
 LDI r15 0
 LDI r14 0
 
 LDI r15 93	# 29 + 64	X = 93
 LDI r14 133	# 5 + 128	Y = 5
 
-10# bouger la balle
-SUB r0 r4 r1
-JZ 13	# addr avancer la balle
-JMP 16	# addr reculer la balle
 
-13# avancer la balle
+# LIGNE 8 update la balle
 AND r15 r3 r15	# on met à 0 les 2 bits de clear et plot
-ADD r15 r1 r15	# on avance la balle
-JMP 19 		# addr afficher la balle
+ADD r15 r1 r15	# on avance/recule la balle
 
-16# reculer la balle
-AND r15 r3 r15	# on met à 0 les 2 bits de clear et plot
-ADD r15 r5 r15	# on recule la balle
-JMP 19		# addr afficher la balle INUTILE CAR LIGNE DAPRES DEJA AFFICHER LA BALLE
-
-
-19# afficher la balle
+# LIGNE 10 afficher la balle
 ADD r15 r6 r15
 
-20# vérifier si on est à un bord
-#bord gauche
+# LIGNE 11 vérifier si on est à un bord
+# bord gauche
 AND r15 r3 r15	# on met à 0 les 2 bits de clear et plot
 SUB r0 r0 r15
-JZ 27	# addr mettre r4 à 1
+JZ 17	# addr mettre r1 à 1
 
-23# bord droit
-AND r15 r3 r15	# on met à 0 les 2 bits de clear et plot
+# bord droit
 SUB r0 r2 r15
-JZ 29	# addr mettre r4 à 2
+JZ 19	# addr mettre r1 à 255
 
-JMP 10	# addr bouger la balle
+# ni a gauche ni à droite
+JMP 8	# addr update la balle
 
-27# mettre r4 à 1
-LDI r4 1
-JMP 10	# addr bouger la balle
+# LIGNE 17 mettre r1 à 1
+LDI r1 1
+JMP 8	# addr update la balle
 
-29# mettre r4 à 2
-LDI r4 2
-JMP 10	# addr bouger la balle
+# LIGNE 19 mettre r1 à 255
+LDI r1 255
+JMP 8	# addr update la balle
 """
 
 EXEMPLE_5 = [
     "LDI r1 1",
     "LDI r2 31",
     "LDI r3 63",
-    "LDI r4 1",
-    "LDI r5 255",
     "LDI r6 192",
     "LDI r15 0",
     "LDI r14 0",
     "LDI r15 93",
     "LDI r14 133",
-    "SUB r0 r4 r1",
-    "JZ 13",
-    "JMP 16",
     "AND r15 r3 r15",
     "ADD r15 r1 r15",
-    "JMP 19",
-    "AND r15 r3 r15",
-    "ADD r15 r5 r15",
     "ADD r15 r6 r15",
     "AND r15 r3 r15",
     "SUB r0 r0 r15",
-    "JZ 27",
-    "AND r15 r3 r15",
+    "JZ 17",
     "SUB r0 r2 r15",
-    "JZ 29",
-    "JMP 10",
-    "LDI r4 1",
-    "JMP 10",
-    "LDI r4 2",
-    "JMP 10"
+    "JZ 19",
+    "JMP 8",
+    "LDI r1 1",
+    "JMP 8",
+    "LDI r1 255",
+    "JMP 8"
 ]

@@ -1,171 +1,188 @@
-﻿
+﻿# Minecraft Redstone Computer Documentation
 
 
------------CREDITS-----------
+## User Manual for My Minecraft Computer
 
-- création de l'ordinateur (hardware) ------------------------------ Raphael HUC
-- théorisation de l'assembleur et résolution des problèmes ------ raphael
-- écriture des codes en assembleur (software) -------------------- HUC
-- réalisation du compilateur --------------------------------------- moi
-- organisation du projet ------------------------------------------- moi-même
-- rédaction du manuel -------------------------------------------- raph
-- soutien émotionnel ---------------------------------------------- toujours moi
-- placement des instruction assembleur dans une liste ---------- chatGPT
-- remerciement pour les tutoriels et certains composants ------- Mattbatwings (chaine youtube)
+If you want to learn more about my computer or even program and run code on it, this is where I explain everything.
+
+In general, my project is written in a mix of English and French.
+
+I am only 17 years old, and this project took me about 3 months to complete.
+
+---
+
+## Project Folder Structure
+
+### Example Programs
+
+- The `videos` folder contains recordings of my computer running various programs.
+- The `assembly_program` file contains several assembler scripts along with their compiled machine code.
+
+### Assembler and Code Writing
+
+- The `instruction_set_and_screen_protocol` file contains the instruction set for my assembler.
+- The `compiler` folder holds the assembler’s compiler, which converts assembly code into machine language that my computer can interpret.
+  - For more details, read the comments at the beginning of the Python scripts in the `compiler` folder.
+- The `images` folder contains various images to help visualize the physical structure of the computer.
+
+---
+
+## Details About My Computer
+
+### 8-bit Computer
+
+#### Computer Speed
+
+- **7.8 Hz/min** when the game runs at normal speed (`20 ticks per second`).
+- The game can be artificially accelerated using commands and the **Carpet mod**, increasing the computer’s processing speed.
+
+#### Computer Memory
+
+- **16 memory registers**  
+  - `r0` is a **zero register**  
+  - `r14` and `r15` are used to interact with the computer  
+  - **Effectively, 13 bytes of usable memory**
+
+#### Supported Operations
+
+- **9 arithmetic and mathematical operations** (see the "assembly" section in `instruction_set_and_screen_protocol`).
+
+#### Screen Interactions
+
+- Ability to turn on a pixel using its **x and y coordinates**.
+- Ability to **clear the entire screen** (but not a single pixel individually).
+
+---
+
+## Writing and Running a Program on My Minecraft Computer
+
+### Step 1: Writing an Assembly Code
+
+*If you already have an assembly code, skip this step.*
+
+- To write your assembly code, read the **instruction set** (`instruction_set_and_screen_protocol` file).
+- If you need to interact with the screen, also read the **screen protocol** in the same file.
+
+### Step 2: Converting Assembly Code into a Python List
+
+*If your code is already compiled, skip to Step 4.*
+
+- You need to place your assembly script into a **Python list**, where each value in the list is a string containing a line of code.
+
+Example:
+```python
+SCRIPT_EXAMPLE = [
+    "LDI r1 255",
+    "LDI r2 40",
+    "LDI r3 25",
+    "SUB r1 r1 r2",
+    "ADD r1 r1 r3",
+    "HLT"
+]
+```
+
+If your script is too long to manually convert into a list, you can ask an AI to do it for you.
+
+### Step 3: Compiling the Code
+
+1. Open the `compiler` folder in a Python code editor.
+2. Place your list in the `exemples.py` script.
+3. Open `main.py` and replace the following line:  
+   ```python
+   instructions = EXAMPLE
+   ```
+   with:
+   ```python
+   instructions = YOUR_DEFINED_LIST_IN_EXEMPLE_PY
+   ```
+4. Run `main.py` to compile your code.
+
+### Step 4: Opening the Minecraft World
+
+*If you already have the Minecraft world open, skip this step.*
+
+1. Launch the Minecraft world containing the computer (`redstone computer` folder in the project root).
+2. To do this, create a **Forge modpack (version 1.21.1)** and install the **Carpet** and **WorldEdit** mods.  
+   - Ensure you download compatible versions for **Minecraft 1.21.1**.
+3. Click the **three dots** next to the "Play" button, then click "Open Folder."
+4. Place the `redstone computer` world folder inside the `saves` directory.
+5. Close the file manager and launch the Forge modpack by clicking "Play."
+6. In **Singleplayer mode**, you should see the **"redstone computer"** world. Open it.
+
+### Step 5: Writing the Code into the Minecraft Computer
+
+1. Find the **large light green block** (this is the **instruction memory** where the code will be placed).  
+   - (See the image `instruction_memory` in the `images` folder.)
+2. Go to the **top of the instruction memory** where a **black block** marks a corner.
+3. Each **column** represents one line/instruction of machine language.  
+   - The **top bit of each column** is the **rightmost bit** in the instruction.  
+   - (See `bits_colonne` image in the `images` folder.)
+4. The **first instruction** goes in the **column directly below the black block** at the **top-left corner** of the memory.
+5. The **second instruction** is placed **to its left** (from the front view), the **third** to the left of the second, and so on.
+6. After 8 instructions, the next instruction should be placed **behind** the very first column (front view).
+7. In summary, when viewed **from above**, with the **black block at the top-left**, instructions should be placed in **left-to-right, top-to-bottom order**.  
+   - (See the image `ordre_ecriture` in the `images` folder.)
+
+8. **Placing a bit:**
+   - Open your inventory and search for a **Redstone Block** (not a red wool block).
+   - Place the Redstone Block on the **green wool block** in front of the light-emitting block.  
+   - (See `placer_bit` image in the `images` folder.)
+   - **Redstone Block = `1`**, **No block = `0`**.
+
+### Step 6: Running the Code
+
+1. Between the **instruction memory** and the **screen**, find the **small yellow tower** (the **Program Counter**).  
+   - (See `program_counter` in `images` folder.)
+2. Press the **right button** at the end of the brown bridge at the base of the yellow tower.  
+   - (See `bouton_execution` in `images` folder.)
+3. Your program is now **running**!  
+   - You can watch the **screen** to your **left** (from the button view).
+4. When the **brown bridge circuit stops looping**, it means the program has finished executing (via the `HLT` instruction).
+5. To check the **register values**, go to the **large pink structure** to the right of the screen.
+   - Each **light-emitting block** represents **one bit**.
+   - Each **column of bits** forms a **byte (a register)**, with the **MSB (Most Significant Bit) at the top**.  
+   - (See `registres` in `images` folder.)
+6. To re-run the program, reset the **Program Counter**:
+   - Return to the **execution button** and press the **other button** to its left.
+   - The **Program Counter** is now reset, and you can execute a new program.
+
+---
+
+## Conclusion
+
+This project represents a **fully functional 8-bit redstone computer** in Minecraft. It includes:
+- A **custom instruction set** for assembly programming.
+- **16 memory registers**.
+- An **interactive screen**.
+- A **compiler** that converts assembly into machine code.
+- Big thanks to Mattbatwings and his youtube series, without his videos i would never have done it.
 
 
+## License
 
+*MIT License
 
----------MANNUEL D'UTILISATION DE MON ORDINATEUR MINECRAFT---------
+Copyright (c) 2025 HUC Raphael - Napstablook0
 
-Si vous souhaitez en apprendre d'avantage sur mon ordinateur ou même programmer et faire tourner un code
-dessus, c'est ici que j'explique tout.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-De manière générale, mon projet est écrit en un mix d'anglais et de français.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-Je n'ai que 17 ans et ce projet m'a prit environ 3 mois à réaliser.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.*
 
+## Authors
 
--------MANNUEL DES DOSSIER DU PROJET-------
-
-
----EXEMPLES DE PROGRAMMES
-
-- Le dossier videos montre mon ordinateur faisant tourner plusieurs programmes
-- le fichier assembly_program contient plusieurs scripts en assembleur et leur code en langage machine
-compilé
-
----ASSEMBLEUR ET ECRITURE DE CODE
-
-- Le fichier instruction_set_and_screen_protocol contient le jeu d'instruction (instruction set) de mon
-assembleur
-- le dossier compiler est le compilateur de mon assembleur, il permet donc de convertir un code assembleur en
-son langage machine
-interprétable par mon ordinateur. Pour plus de détails, aller lire les commentaires en tête des scripts
-python du dossier compiler
-- le dossier images contient plusieurs images pour mieux se représenter physiquement à quoi ressemble
-l'ordinateur
-
-
-
-
--------DETAILS DE MON ORDINATEUR-------
-
-
-C'est un ordinateur 8-bits
-
----VITESSE de l'ordinateur
-
-- 7,8 Hz/min quand le jeu tourne a vitesse normale : 20 tics/s
-- le jeu peut etre artificiellement accéléré en utilisant des commandes et le mod "Carpet",
-augmentant ainsi la vitesse de calcul de l'ordinateur
-
----MEMOIRE de l'ordinateur
-
-- 16 registres de mémoire dont le registre r0 qui est un "0-register" et les registres r14 et r15 qui sont
-utilisés pour intéragir avec l'ordinateur, donc en soit, 13 octets de mémoire
-
----OPERATIONS possibles
-
-- 9 opération mathématiques et arithmétiques au total (voir la fiche "assembly" du fichier
-instruction_set_and_screen_protocol)
-
----INTERACTIONS AVEC L'ECRAN
-
-- Possibilité d'allumer un pixel sur l'écran en utilisant les coordonnées x et y du dit pixel
-- possibilité d'éffacer l'écran en entier (mais pas un pixel en particulier)
-
-
-
--------POUR ECRIRE ET FAIRE TOURNER UN PROGRAMME SUR MON ORDINATEUR-------
-
-
---- ETAPE 1 : AVOIR UN CODE ASSEMBLEUR
-
-si vous avez déjà votre code en assembleur, passez cette étape
-
-- Pour écrire votre code assembleur, lisez le jeu d'instructions (instruction set) puis écrivez votre code,
-si vous devez intéragir avec l'écran, lisez aussi le protocole de l'écran (screen protocol) du même fichier
-que le jeu d'instruction (instruction set)
-
---- ETAPE 2 : PASSER DE L'ASSEMBLEUR A LA LISTE PYTHON
-
-si vous avez déjà votre code compilé, passez à l'étape 4
-
-- Vous devez placer votre script assembleur dans une liste python, chaque valeur de cette liste est une
-chaine de caractere contenant une ligne du code, voici un exemple de code assembleur écrit dans une liste :
-SCRIPT_EXEMPLE = ["LDI r1 255",
-			"LDI r2 40",
-			"LDI r3 25",
-			"SUB r1 r1 r2",
-			"ADD r1 r1 r3",
-			"HLT"]
-pour faire cela et si votre script est trop long à écrire à la main dans une liste, demandez simplement à une
-IA de le faire à votre place
-
---- ETAPE 3 : COMPILATION DU CODE
-
-- Ouvrez le dossier compiler dans un éditeur de code python
-- placez votre liste dans le script exemples.py
-- allez dans le script main.py et remplacez la ligne :
-	instructions = EXEMPLE
-par :
-	instructions = VOTRE_LISTE_DEFINIE_DANS_EXEMPLE_PY
-- executez ensuite main.py
-- vous avez votre code compilé !
-
---- ETAPE 4 : OUVRIR LE MONDE MINECRAFT
-
-si vous avez déjà le monde minecraft ouvert, passez cette étape
-
-- Lancez le monde minecraft contenant l'ordinateur (le world download du monde est dans la racine du projet,
-c'est le dossier "redstone computer")
-- pour cela, creez un modpack en 1.21.1 sur le logiciel forge, installez les mods "carpet" et "WorldEdit",
-assurez vous de télécharger les versions compatibles avec la 1.21.1
-- ensuite, appuyez su les 3 points à gauche du bouton play puis allez dans "open folder" et placez le world 
-download dans le dossier save
-- fermez le gestionnaire de fichier et lancez le modpack forge en appuyant sur "play"
-- dans "solo" vous devriez voir le monde "redstone computer" contenant l'ordinateur, lancez-le
-
---- ETAPE 5 : ECRIRE LE CODE SUR L'ORDINATEUR MINECRAFT
-
-- Vous voyez le gros bloc vert clair ? c'est la mémoire à instruction (instruction memory) c'est là qu'on va
-placer le code (voir l'image instruction_memory du dossier images)
-- allez au dessus de la mémoire à instruction, un de ses coins contient un bloc noir, allez vers ce bloc
-- chaque colonne (voir l'image "colonnes" dans le dossier images) est un ligne/instruction de langage
-machine, le premier bit, celui tout en haut de chaque colonnes est le bit le plus à droite (voir l'image  
-bits_colonne dans le dossier images)
-- la premiere instruction est la colonne en dessous du bloc noir dans le coin supérieur de la mémoire à
-instruction (instruction memory)
-- la deuxième est à sa gauche (vue de face), la troisième à la gauche de la deuxième et ainsi de suite
-- au bout de 8 instructions, la prochaine instruction à écrire est à placer derrière la toute première (vue
-de face)
-- en somme, si on regarde la mémoire à instruction de dessus avec le bloc noir placez en haut à gauche, les
-instructions doivent être placées dans l'ordre d'écriture (gauche à droite et haut vers le bas), voir l'image
-"ordre_ecriture" du dossier images
-
-- pour placer un bit:
-	- ouvrez votre inventaire et cherchez un block rouge nommé block de redstone (à ne pas confondre avec un
-	block de laine rouge)
-	- prenez le et placez-le sur le bloc de laine vert devant le bloc lumineux (voir l'image "placer_bit"
-	dans le dossier images)
-- les block de redstone représente un 1 et l'absence de block représente un 0
-
---- ETAPE 6 : EXECUTION DU CODE
-
-- Entre la mémoire à instruction et l'écran, il y a une petite tour jaune (le compteur de programme (program
-counter)), allez vers lui (voir l'image program_counter du dossier images)
-- appuyez sur le bouton de droite placé au bout du "pont" maron au pied de la tour jaune (voir l'image
-bouton_execution du dossier images)
-- le programme est maintenant en cours d'éxécution ! Vous pouvez regarder l'écran sur votre gauche (vue face
-au bouton)
-- quand la boucle formée par le circuit sur le "pont" maron sera arrêtée, c'est que le programme sera finit
-d'éxecuter (par l'instruction HALT)
-- pour voir les résultat dans les registres, allez vers la grosse construction rose, à droite de l'écran
-- chaque block lumineux est un bit, chaque colonne de bit est un octet (et un registre donc) dont le msb
-(most significant bit) est celui le plus en haut, voir l'image registres du dossier images
-- afin de pouvoir réexecuter l'ordinateur, vous devez remettre à zero le compteur de programme (program
-counter), pour cela, revenez devant le bouton qui permet d'éxecuter le programme et appuyez sur l'autre
-bouton, placé à sa gauche
-- le compteur est maintenant revenu à zero, vous pouvez à nouveau exécuter le programme
+- **HUC Raphael - Napstablook0** – [GitHub Profile](https://github.com/Napstablook0)  
 

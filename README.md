@@ -115,7 +115,7 @@ If your script is too long to manually convert into a list, you can ask an AI to
    - (See the image `instruction_memory` in the `images` folder.)
 2. Go to the **top of the instruction memory** where a **black block** marks a corner.
 3. Each **column** represents one line/instruction of machine language.  
-   - The **top bit of each column** is the **rightmost bit** in the instruction.  
+   - The **top bit of each column** is the **most significant bit** in the instruction.  
    - (See `bits_colonne` image in the `images` folder.)
 4. The **first instruction** goes in the **column directly below the black block** at the **top-left corner** of the memory.
 5. The **second instruction** is placed **to its left** (from the front view), the **third** to the left of the second, and so on.

@@ -7,7 +7,7 @@ If you want to learn more about my computer or even program and run code on it, 
 
 In general, my project is written in a mix of English and French.
 
-I am only 17 years old, and this project took me about 3 months to complete.
+I am only 17 years old at the moment of making this project, and it took me about 3 months to complete.
 
 ---
 
